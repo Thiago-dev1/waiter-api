@@ -1,0 +1,31 @@
+version: '3.9'
+
+services:
+  database_waiter:
+    image: postgres:latest
+    container_name: database_waiter
+    hostname: postgres
+    restart: unless-stopped
+    ports: 
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=docker
+      - POSTGRES_PASSWORD=3231
+      - POSTGRES_DB=waiter
+    volumes:
+      - pgdata:/data/postgres
+  
+
+  app:
+    build: .
+    container_name: waiter_api
+    depends_on: 
+      - database_waiter
+    ports:
+      - 3333:3333
+    volumes:
+      - .:/usr/app
+
+volumes:
+  pgdata:
+    driver: local
