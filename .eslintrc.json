@@ -19,6 +19,8 @@
         "no-useless-constructor": "off",
         "no-trailing-spaces": "off",
         "padded-blocks": "off",
-        "no-unused-vars": "warn"
+        "no-unused-vars": "warn",
+        "no-multiple-empty-lines": "warn",
+        "indent": "warn"
     }
 }

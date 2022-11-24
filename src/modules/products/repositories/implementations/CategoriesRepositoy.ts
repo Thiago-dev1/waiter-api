@@ -6,6 +6,12 @@ import { Category } from '@prisma/client'
 
 class CategoriesRepository implements ICategoriesRepository {
   
+  async listAllCategories (): Promise<Category[]> {
+    const categories = await prisma.category.findMany({})
+
+    return categories
+  }
+  
   async find (name: string): Promise<Category> {
     const category = await prisma.category.findUnique({
       where: {

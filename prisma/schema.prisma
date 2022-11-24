@@ -2,12 +2,19 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
+  provider      = "prisma-client-js"
+  binaryTargets = ["native"]
 }
 
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+}
+
+enum Status {
+  WAITING
+  IN_PRODUCTION
+  DONE
 }
 
 model Category {
@@ -29,6 +36,7 @@ model Product {
   Ingredients Ingredient[]
   Category    Category     @relation(fields: [categoryId], references: [id])
   categoryId  String
+  request     Request[]
 
   @@map("products")
 }
@@ -38,6 +46,24 @@ model Ingredient {
   name String
   icon String
 
-  product   Product? @relation(fields: [productId], references: [id])
-  productId String?
+  product Product[]
+}
+
+model Order {
+  id        String  @id @default(cuid())
+  table     String
+  status    Status  @default(WAITING)
+  request   Request @relation(fields: [requestId], references: [id])
+  requestId String
+
+  @@map("order")
+}
+
+model Request {
+  id       String    @id @default(cuid())
+  products Product[]
+  quantity Int[]
+  Order    Order[]
+
+  @@map("requests")
 }

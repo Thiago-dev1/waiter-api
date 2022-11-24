@@ -4,7 +4,8 @@ interface ICreateProductDTO {
     description: string,
     imagePath: string,
     prince: number,
-    categoryId: string
+    categoryId: string,
+    ingredients: string[]
 }
 
 export { ICreateProductDTO }
