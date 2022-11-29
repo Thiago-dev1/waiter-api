@@ -17,7 +17,10 @@ class OrdersRepository implements IOrdersRepository {
       }
     })
 
+    orders.map(item => item.request.products.map((i, index) => console.log(i.prince * item.request.quantity[index])))
+
     return orders
+    
   }
 
   async create ({ products, table }: ICreateOrder): Promise<void> {

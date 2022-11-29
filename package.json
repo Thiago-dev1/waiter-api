@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "tsnd -r tsconfig-paths/register --inspect --exit-child src/server.ts",
+    "dev": "tsnd -r tsconfig-paths/register --exit-child src/server.ts",
     "seed:ingredients": "ts-node-dev prisma/seed/ingredients.ts",
     "seed:delete": "ts-node-dev prisma/seed/delete.ts",
     "test": "jest"
