@@ -10,11 +10,12 @@ class ListAllProductsUseCase {
         private productRepository: IProductRepository
   ) {}
 
-  async execute (): Promise<Product[]> {
-    const products = this.productRepository.listAllProducts()
+  async execute (categoryId?: string): Promise<Product[]> {
+    const products = this.productRepository.listAllProducts(categoryId)
 
     return products
   }
+
 }
 
 export { ListAllProductsUseCase }

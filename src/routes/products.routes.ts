@@ -10,5 +10,6 @@ const listAllProductsController = new ListAllProductsController()
 
 productsRoutes.post('/', createProductController.handle)
 productsRoutes.get('/', listAllProductsController.handle)
+productsRoutes.get('/:categoryId', listAllProductsController.handle)
 
 export { productsRoutes }

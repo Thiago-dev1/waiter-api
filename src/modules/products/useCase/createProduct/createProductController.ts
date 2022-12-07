@@ -10,15 +10,15 @@ class CreateProductController {
       description: z.string(),
       imagePath: z.string(),
       name: z.string(),
-      prince: z.number(),
+      price: z.number(),
       ingredients: z.array(z.string())
     })
 
-    const { categoryId, description, imagePath, name, prince, ingredients } = createCategory.parse(request.body)
+    const { categoryId, description, imagePath, name, price, ingredients } = createCategory.parse(request.body)
 
     const createProductUseCase = container.resolve(CreateProductUseCase)
 
-    const res = await createProductUseCase.execute({ categoryId, description, imagePath, name, prince, ingredients })
+    const res = await createProductUseCase.execute({ categoryId, description, imagePath, name, price, ingredients })
 
     if (res) {
       return response.status(400).json({ message: res })

@@ -3,7 +3,7 @@ interface ICreateProductDTO {
     name: string,
     description: string,
     imagePath: string,
-    prince: number,
+    price: number,
     categoryId: string,
     ingredients: string[]
 }

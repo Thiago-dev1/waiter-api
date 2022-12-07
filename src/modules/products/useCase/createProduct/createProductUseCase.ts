@@ -11,7 +11,7 @@ class CreateProductUseCase {
         private productsRepository: IProductRepository
   ) { }
 
-  async execute ({ categoryId, description, imagePath, name, prince, ingredients }: ICreateProductDTO): Promise<void | string> {
+  async execute ({ categoryId, description, imagePath, name, price, ingredients }: ICreateProductDTO): Promise<void | string> {
 
     // const category = await this.productsRepository.find(name)
 
@@ -19,7 +19,7 @@ class CreateProductUseCase {
     //   return 'Category already exists!'
     // }
 
-    this.productsRepository.create({ categoryId, description, imagePath, name, prince, ingredients })
+    this.productsRepository.create({ categoryId, description, imagePath, name, price, ingredients })
   }
 }
 

@@ -1,4 +1,5 @@
 import { Request, Response } from 'express'
+import { io } from 'src/server'
 import { container } from 'tsyringe'
 import z, { array } from 'zod'
 
@@ -21,7 +22,9 @@ class CreateOrderController {
 
     const createOrderUseCase = container.resolve(CreateOrderUseCase)
 
-    await createOrderUseCase.execute({ table, products })
+    const order = await createOrderUseCase.execute({ table, products })
+
+    io.emit('orders@new', order)
 
     return response.status(201).send()
   }

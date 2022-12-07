@@ -6,29 +6,43 @@ import { Product } from '@prisma/client'
 
 class ProductsRepository implements IProductRepository {
   
-  async listAllProducts (): Promise<Product[]> {
-    const products = await prisma.product.findMany({
-      include: {
-        Category: true,
-        Ingredients: {
-          select: {
-            name: true
-          }
-        }
-      }
-    })
+  async listAllProducts (categoryId?: string): Promise<Product[]> {
 
-    return products
+    if (categoryId?.length > 0) {
+      const products = await prisma.product.findMany({
+        where: {
+          categoryId
+        },
+        include: {
+          Category: true,
+          Ingredients: true
+        }
+      })
+
+      return products
+
+    } else {
+      const products = await prisma.product.findMany({
+        include: {
+          Category: true,
+          Ingredients: true
+        }
+      })
+
+      return products
+
+    }
+ 
   }
 
-  async create ({ categoryId, description, imagePath, name, prince, ingredients }: ICreateProductDTO): Promise<void> {
+  async create ({ categoryId, description, imagePath, name, price, ingredients }: ICreateProductDTO): Promise<void> {
     
     await prisma.product.create({
       data: {
         description,
         imagePath,
         name,
-        prince,
+        price,
         categoryId,
         Ingredients: {
           connect: ingredients.map(i => ({ id: i }))

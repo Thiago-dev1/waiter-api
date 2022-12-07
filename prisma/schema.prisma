@@ -31,12 +31,11 @@ model Product {
   name        String
   description String
   imagePath   String
-  prince      Int
+  price      Int
 
   Ingredients Ingredient[]
   Category    Category     @relation(fields: [categoryId], references: [id])
   categoryId  String
-  request     Request[]
 
   @@map("products")
 }
@@ -50,20 +49,20 @@ model Ingredient {
 }
 
 model Order {
-  id        String  @id @default(cuid())
+  id        String @id @default(cuid())
   table     String
-  status    Status  @default(WAITING)
-  request   Request @relation(fields: [requestId], references: [id])
-  requestId String
+  status    Status @default(WAITING)
+  request   Json
 
   @@map("order")
 }
 
-model Request {
-  id       String    @id @default(cuid())
-  products Product[]
-  quantity Int[]
-  Order    Order[]
+// model Request {
+//   id       String    @id @default(cuid())
+//   products Product[]
+//   quantity Int
+//   Order    Order?    @relation(fields: [orderId], references: [id])
+//   orderId  String?
 
-  @@map("requests")
-}
+//   @@map("requests")
+// }
